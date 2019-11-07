@@ -1,6 +1,5 @@
 // @flow
-import React, { useEffect } from 'react';
-import { RouteComponentProps, Route } from 'react-router-dom';
+import React from 'react';
 import {
   createMuiTheme,
   makeStyles,
@@ -37,21 +36,17 @@ const useStyles = makeStyles((_theme: Theme) => ({
   }
 }));
 
-interface MainProps extends RouteComponentProps {}
+interface MainProps {}
 
 function Main(props: MainProps) {
   const classes = useStyles();
 
-  useEffect(() => {
-    if (props.location.pathname === '/') props.history.replace('/home');
-  }, [props.history, props.location.pathname]);
-
   return (
     <ThemeProvider theme={theme}>
       <div>
-        <Drawer {...props} currentPage={props.location.pathname} />
+        <Drawer {...props} currentPage={window.location.pathname} />
         <main className={classes.main}>
-          <Route path="/home" component={Home} />
+          <Home />
         </main>
       </div>
     </ThemeProvider>

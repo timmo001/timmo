@@ -1,7 +1,5 @@
 // @flow
 import React from 'react';
-import { Link } from 'react-router-dom';
-import { RouteComponentProps } from 'react-router-dom';
 import classnames from 'classnames';
 import { makeStyles, Theme } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
@@ -49,7 +47,7 @@ const useStyles = makeStyles((theme: Theme) => ({
   }
 }));
 
-interface ResponsiveDrawerProps extends RouteComponentProps {
+interface ResponsiveDrawerProps {
   currentPage: string;
 }
 
@@ -69,10 +67,10 @@ function ResponsiveDrawer(props: ResponsiveDrawerProps) {
     <div className={classes.drawer}>
       <List>
         {Items.map((item: ItemsProps, key: number) => (
-          <Link
+          <a
             key={key}
             className={classes.link}
-            to={item.link}
+            href={item.link}
             onClick={handleDrawerClose}>
             <ListItem
               selected={props.currentPage === item.link ? true : false}
@@ -82,7 +80,7 @@ function ResponsiveDrawer(props: ResponsiveDrawerProps) {
               </ListItemIcon>
               <ListItemText primary={item.name} />
             </ListItem>
-          </Link>
+          </a>
         ))}
       </List>
     </div>

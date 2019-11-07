@@ -1,6 +1,5 @@
 // @flow
 import React from 'react';
-import { RouteComponentProps } from 'react-router-dom';
 import { makeStyles, Theme } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import CardActionArea from '@material-ui/core/CardActionArea';
@@ -33,14 +32,13 @@ const useStyles = makeStyles((theme: Theme) => ({
   }
 }));
 
-interface HomeProps extends RouteComponentProps {}
+interface HomeProps {}
 
 function Home(props: HomeProps) {
   const classes = useStyles();
 
   const handleClick = (link: string) => () => {
-    if (link.startsWith('http')) window.location.href = link;
-    else props.history.push(link);
+    window.location.href = link;
   };
 
   return (
@@ -48,8 +46,8 @@ function Home(props: HomeProps) {
       className={classes.root}
       container
       direction="row"
-      justify="center"
-      alignContent="space-around"
+      justify="flex-start"
+      alignContent="flex-start"
       spacing={2}>
       {/* <Grid item xs={12}>
         <CardMedia className={classes.banner} image={banner} />
@@ -60,30 +58,46 @@ function Home(props: HomeProps) {
             <MarkdownText text={section.name} />
           </Typography>
           <Divider />
-          {section.links.map((link: Link, key: number) => (
-            <Grid key={key} item>
-              <Card className={classes.card}>
-                <CardActionArea onClick={handleClick(link.link)}>
-                  <CardMedia
-                    className={classes.cardBanner}
-                    image={link.banner}
-                    title={link.name}
-                  />
-                  <CardContent>
-                    <Typography gutterBottom variant="h5" component="h3">
-                      <MarkdownText text={link.name} />
-                    </Typography>
-                    <Typography
-                      variant="body2"
-                      color="textSecondary"
-                      component="span">
-                      <MarkdownText text={link.description} />
-                    </Typography>
-                  </CardContent>
-                </CardActionArea>
-              </Card>
-            </Grid>
-          ))}
+          <Grid
+            item
+            xs={12}
+            container
+            direction="row"
+            justify="flex-start"
+            alignContent="flex-start">
+            {section.links.map((link: Link, key: number) => (
+              <Grid key={key} item>
+                <Card className={classes.card}>
+                  <CardActionArea onClick={handleClick(link.link)}>
+                    <CardMedia
+                      className={classes.cardBanner}
+                      image={link.banner}
+                      title={link.name}
+                    />
+                    <CardContent>
+                      <Typography gutterBottom variant="h5" component="h3">
+                        {link.markdown ? (
+                          <MarkdownText text={link.name} />
+                        ) : (
+                          link.name
+                        )}
+                      </Typography>
+                      <Typography
+                        variant="body2"
+                        color="textSecondary"
+                        component="span">
+                        {link.markdown ? (
+                          <MarkdownText text={link.description} />
+                        ) : (
+                          link.description
+                        )}
+                      </Typography>
+                    </CardContent>
+                  </CardActionArea>
+                </Card>
+              </Grid>
+            ))}
+          </Grid>
         </Grid>
       ))}
     </Grid>

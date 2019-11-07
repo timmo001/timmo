@@ -15,7 +15,7 @@ export interface MenuItemsProps {
 export default [
   {
     name: 'Home',
-    link: '/home',
+    link: '/',
     icon: 'mdi-home'
   }
 ];
