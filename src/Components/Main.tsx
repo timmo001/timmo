@@ -8,7 +8,8 @@ import {
   Theme,
   ThemeProvider
 } from '@material-ui/core/styles';
-import pink from '@material-ui/core/colors/pink';
+import blueGrey from '@material-ui/core/colors/blueGrey';
+import cyan from '@material-ui/core/colors/cyan';
 
 import Drawer from './Drawer/Drawer';
 import Home from './Home';
@@ -17,27 +18,22 @@ const theme = responsiveFontSizes(
   createMuiTheme({
     palette: {
       type: 'dark',
-      primary: pink,
-      secondary: pink,
+      primary: blueGrey,
+      secondary: cyan,
       background: {
         default: '#303030',
         paper: '#383c45'
-      },
-      text: {
-        primary: '#ffffff'
       }
     }
   })
 );
 
-const useStyles = makeStyles((theme: Theme) => ({
-  root: {
+const useStyles = makeStyles((_theme: Theme) => ({
+  main: {
     minHeight: '100%',
-    background: theme.palette.background.default
-  },
-  toolbar: {
-    ...theme.mixins.toolbar,
-    height: 48
+    [theme.breakpoints.up('sm')]: {
+      marginLeft: 240
+    }
   }
 }));
 
@@ -52,11 +48,10 @@ function Main(props: MainProps) {
 
   return (
     <ThemeProvider theme={theme}>
-      <div className={classes.root}>
+      <div>
         <Drawer {...props} currentPage={props.location.pathname} />
-        <div className={classes.toolbar} />
-        <main>
-          <Route path="home" component={Home} />
+        <main className={classes.main}>
+          <Route path="/home" component={Home} />
         </main>
       </div>
     </ThemeProvider>
