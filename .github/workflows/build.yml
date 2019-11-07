@@ -1,5 +1,5 @@
 ---
-name: Build App
+name: Build App and Publish
 
 on:
   push:
